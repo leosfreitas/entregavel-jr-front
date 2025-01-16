@@ -5,11 +5,8 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 
 
 export function Header() {
-
   
   const matches = useMatches();
-
-
     
   return (
     <HeaderStyle>

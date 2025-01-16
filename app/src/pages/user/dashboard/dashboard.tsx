@@ -3,6 +3,9 @@ import { Header } from './components/header';
 import { Menu } from './components/menu';
 import styled from 'styled-components';
 import { Home } from './nested/home/homepage';
+import { History } from './nested/history/history';
+import { Finances } from './nested/finances/finances';
+import { Profile } from './nested/profile/profile';
 
 
 export const Dashboard = () => {
@@ -12,6 +15,9 @@ export const Dashboard = () => {
             <Menu/>
             <Routes>
                 <Route path="home" element={<Home />}/>
+                <Route path="history" element={<History />}/>
+                <Route path="finances" element={<Finances />}/>
+                <Route path="profile" element={<Profile />} />
             </Routes>
         </DashboardStyles>
     )
