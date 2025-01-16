@@ -10,7 +10,7 @@ export const Register = () => {
     password: '',
     confirmPassword: '',
     cpf: '',
-    phone: '',
+    phone: '',  
   });
 
   const [error, setError] = useState('');
@@ -41,7 +41,7 @@ export const Register = () => {
       });
 
       toast.success('Cadastro realizado com sucesso!');
-      setTimeout(() => navigate('/user/auth/login'), 2000); // Redireciona após 2 segundos
+      setTimeout(() => navigate('/user/auth/login'), 2000); 
     } catch (error) {
       toast.error('Erro ao realizar o cadastro. Tente novamente.');
     }
