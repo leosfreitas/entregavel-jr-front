@@ -1,144 +1,311 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { createDespesa } from './api/finances';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { toast } from "react-hot-toast";
+import { createDespesa, getDespesas, deleteDespesa } from "./api/finances";
+import { CurrencyDollar, PlusCircle } from "@phosphor-icons/react";
 
 export const Finances = () => {
-    const [tipo, setTipo] = useState('');
-    const [valor, setValor] = useState('');
-    const [data, setData] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+  const [tipo, setTipo] = useState("");
+  const [valor, setValor] = useState("");
+  const [data, setData] = useState("");
+  const [descricao, setDescricao] = useState("");
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        try {
-            const response = await createDespesa(tipo, valor, data, descricao);
-            if (response.response.ok) {
-                setSuccess('Despesa criada com sucesso!');
-                setError('');
-            } else {
-                setError('Erro ao criar a despesa');
-            }
-        } catch (error) {
-            setError('Erro ao criar a despesa');
-            setSuccess('');
-        }
-    };
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-    return (
-        <FinanceStyles>
-            <h2>Despesas, receitas e orçamentos</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="tipo">Tipo</label>
-                    <select
-                        id="tipo"
-                        value={tipo}
-                        onChange={(e) => setTipo(e.target.value)}
-                        required
-                    >
-                        <option value="">Selecione um tipo</option>
-                        <option value="Habitação">Habitação</option>
-                        <option value="Transporte">Transporte</option>
-                        <option value="Alimentação">Alimentação</option>
-                        <option value="Saúde">Saúde</option>
-                        <option value="Educação">Educação</option>
-                        <option value="Lazer">Lazer</option>
-                        <option value="Roupas">Roupas</option>
-                        <option value="Tecnologia">Tecnologia</option>
-                        <option value="Assinaturas e Serviços">Assinaturas e Serviços</option>
-                        <option value="Investimentos">Investimentos</option>
-                        <option value="Doações">Doações</option>
-                        <option value="Impostos">Impostos</option>
-                        <option value="Dívidas">Dívidas</option>
-                        <option value="Outros">Outros</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="valor">Valor</label>
-                    <textarea
-                        id="valor"
-                        value={valor}
-                        onChange={(e) => setValor(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="data">Data</label>
-                    <input
-                        type="date"
-                        id="data"
-                        value={data}
-                        onChange={(e) => setData(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="descricao">Descrição</label>
-                    <textarea
-                        id="descricao"
-                        value={descricao}
-                        onChange={(e) => setDescricao(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Criar Despesa</button>
-            </form>
+  const [despesas, setDespesas] = useState<any[]>([]);
 
-            {success && <p style={{ color: 'green' }}>{success}</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-        </FinanceStyles>
-    );
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getDespesas();
+        setDespesas(data);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
+  // Função para criar despesa
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await createDespesa(tipo, valor, data, descricao);
+      if (response.response.ok) {
+        toast.success("Despesa criada com sucesso!");
+        setSuccess("Despesa criada com sucesso!");
+
+        const newDespesas = await getDespesas();
+        setDespesas(newDespesas);
+
+        // Limpa campos do formulário
+        setTipo("");
+        setValor("");
+        setData("");
+        setDescricao("");
+      } else {
+        toast.error("Erro ao criar a despesa");
+        setError("Erro ao criar a despesa");
+      }
+    } catch (error) {
+      toast.error("Erro ao criar a despesa");
+      setError("Erro ao criar a despesa");
+    }
+  };
+
+  // Função para DELETAR despesa
+  const handleDelete = async (despesaId: string) => {
+    try {
+      await deleteDespesa(despesaId);
+      toast.success("Despesa deletada com sucesso!");
+
+      // Recarrega a lista de despesas
+      const newDespesas = await getDespesas();
+      setDespesas(newDespesas);
+    } catch (err: any) {
+      toast.error(err.message || "Erro ao deletar despesa");
+    }
+  };
+
+  return (
+    <FinanceContainer>
+      <Title>
+        <CurrencyDollar size={28} weight="bold" />
+        Despesas, receitas e orçamentos
+      </Title>
+
+      {/* Tabela de despesas */}
+      <DespesasSection>
+        <h3>Minhas Despesas</h3>
+        {despesas && despesas.length > 0 ? (
+          <TableScrollContainer>
+            <DespesasTable>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Valor</th>
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {despesas.map((desp, index) => (
+                  <tr key={index}>
+                    <td>{desp.tipo}</td>
+                    <td>R$ {desp.valor}</td>
+                    <td>{desp.data}</td>
+                    <td>{desp.descricao || "-"}</td>
+                    <td>
+                      <ActionButton>Editar</ActionButton>
+                      <ActionButton onClick={() => handleDelete(desp._id)}>
+                        Deletar
+                      </ActionButton>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </DespesasTable>
+          </TableScrollContainer>
+        ) : (
+          <NoData>Nenhuma despesa cadastrada.</NoData>
+        )}
+      </DespesasSection>
+
+      {/* Form para criar nova despesa */}
+      <StyledForm onSubmit={handleSubmit}>
+        <FormItem>
+          <label htmlFor="tipo">Tipo</label>
+          <select
+            id="tipo"
+            value={tipo}
+            onChange={(e) => setTipo(e.target.value)}
+            required
+          >
+            <option value="">Selecione</option>
+            <option value="Habitação">Habitação</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Educação">Educação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Roupas">Roupas</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Assinaturas e Serviços">Assinaturas e Serviços</option>
+            <option value="Investimentos">Investimentos</option>
+            <option value="Doações">Doações</option>
+            <option value="Impostos">Impostos</option>
+            <option value="Dívidas">Dívidas</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </FormItem>
+
+        <FormItem>
+          <label htmlFor="valor">Valor</label>
+          <input
+            id="valor"
+            value={valor}
+            onChange={(e) => setValor(e.target.value)}
+            required
+            placeholder="Ex: 250.00"
+          />
+        </FormItem>
+
+        <FormItem>
+          <label htmlFor="data">Data</label>
+          <input
+            type="date"
+            id="data"
+            value={data}
+            onChange={(e) => setData(e.target.value)}
+            required
+          />
+        </FormItem>
+
+        <FormItem>
+          <label htmlFor="descricao">Descrição</label>
+          <input
+            id="descricao"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
+            placeholder="Ex: Compra de mercado"
+          />
+        </FormItem>
+
+        <SubmitButton type="submit">
+          <PlusCircle size={18} weight="bold" />
+          Criar Despesa
+        </SubmitButton>
+      </StyledForm>
+    </FinanceContainer>
+  );
 };
 
-const FinanceStyles = styled.div`
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+// -------------------------------------------------
+//   ESTILIZAÇÕES (sem mudanças, só pra referência)
+// -------------------------------------------------
+const FinanceContainer = styled.div`
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+`;
 
-    h2 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
+const Title = styled.h2`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+`;
 
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+const DespesasSection = styled.div`
+  h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: #444;
+  }
+`;
 
-    div {
-        margin-bottom: 15px;
-    }
+const TableScrollContainer = styled.div`
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 24px;
+`;
 
-    label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
+const DespesasTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
 
-    input, textarea, select {
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-    }
+  thead {
+    background-color: #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
 
-    button {
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc;
+  }
 
-        &:hover {
-            background-color: #0056b3;
-        }
-    }
+  th {
+    font-weight: bold;
+  }
 
-    p {
-        font-size: 1rem;
-        margin-top: 15px;
-    }
+  td {
+    vertical-align: middle;
+  }
+`;
+
+const ActionButton = styled.button`
+  margin-right: 8px;
+  padding: 6px 10px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background-color: #bbb;
+  }
+`;
+
+const NoData = styled.div`
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 24px;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+`;
+
+const FormItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 110px;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.9rem;
+  }
+
+  input,
+  select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+  }
+`;
+
+const SubmitButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background-color: #007bff;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
