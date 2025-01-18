@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { toast } from "react-hot-toast";
-import { createDespesa, getDespesas, deleteDespesa } from "./api/finances";
-import { CurrencyDollar, PlusCircle } from "@phosphor-icons/react";
+import { createDespesa, getDespesas, deleteDespesa, editDespesa } from "./api/finances";
+import { CurrencyDollar, PlusCircle, PencilSimple, Check, X } from "@phosphor-icons/react";
 
 export const Finances = () => {
   const [tipo, setTipo] = useState("");
@@ -14,6 +14,13 @@ export const Finances = () => {
   const [success, setSuccess] = useState("");
 
   const [despesas, setDespesas] = useState<any[]>([]);
+  const [editing, setEditing] = useState<string | null>(null); 
+  const [editFields, setEditFields] = useState({
+    tipo: "",
+    valor: "",
+    data: "",
+    descricao: "",
+  });
 
   useEffect(() => {
     (async () => {
@@ -53,18 +60,50 @@ export const Finances = () => {
     }
   };
 
-  // Função para DELETAR despesa
+  // Função para deletar despesa
   const handleDelete = async (despesaId: string) => {
     try {
       await deleteDespesa(despesaId);
       toast.success("Despesa deletada com sucesso!");
 
-      // Recarrega a lista de despesas
       const newDespesas = await getDespesas();
       setDespesas(newDespesas);
     } catch (err: any) {
       toast.error(err.message || "Erro ao deletar despesa");
     }
+  };
+
+  // Função para editar despesa
+  const handleEdit = (despesa: any) => {
+    setEditing(despesa._id);
+    setEditFields({
+      tipo: despesa.tipo,
+      valor: despesa.valor,
+      data: despesa.data,
+      descricao: despesa.descricao || "",
+    });
+  };
+
+  const handleEditCancel = () => {
+    setEditing(null);
+    setEditFields({ tipo: "", valor: "", data: "", descricao: "" });
+  };
+
+  const handleEditSave = async () => {
+    try {
+      await editDespesa(editing!, editFields.tipo, editFields.valor, editFields.data, editFields.descricao);
+      toast.success("Despesa editada com sucesso!");
+      setEditing(null);
+
+      const newDespesas = await getDespesas();
+      setDespesas(newDespesas);
+    } catch (err: any) {
+      toast.error(err.message || "Erro ao editar despesa");
+    }
+  };
+
+  const handleEditChange = (field: string, value: string) => {
+    setEditFields({ ...editFields, [field]: value });
   };
 
   return (
@@ -90,17 +129,72 @@ export const Finances = () => {
                 </tr>
               </thead>
               <tbody>
-                {despesas.map((desp, index) => (
-                  <tr key={index}>
-                    <td>{desp.tipo}</td>
-                    <td>R$ {desp.valor}</td>
-                    <td>{desp.data}</td>
-                    <td>{desp.descricao || "-"}</td>
+                {despesas.map((desp) => (
+                  <tr key={desp._id}>
                     <td>
-                      <ActionButton>Editar</ActionButton>
-                      <ActionButton onClick={() => handleDelete(desp._id)}>
-                        Deletar
-                      </ActionButton>
+                      {editing === desp._id ? (
+                        <input
+                          value={editFields.tipo}
+                          onChange={(e) => handleEditChange("tipo", e.target.value)}
+                        />
+                      ) : (
+                        desp.tipo
+                      )}
+                    </td>
+                    <td>
+                      {editing === desp._id ? (
+                        <input
+                          value={editFields.valor}
+                          onChange={(e) => handleEditChange("valor", e.target.value)}
+                        />
+                      ) : (
+                        `R$ ${desp.valor}`
+                      )}
+                    </td>
+                    <td>
+                      {editing === desp._id ? (
+                        <input
+                          type="date"
+                          value={editFields.data}
+                          onChange={(e) => handleEditChange("data", e.target.value)}
+                        />
+                      ) : (
+                        desp.data
+                      )}
+                    </td>
+                    <td>
+                      {editing === desp._id ? (
+                        <input
+                          value={editFields.descricao}
+                          onChange={(e) => handleEditChange("descricao", e.target.value)}
+                        />
+                      ) : (
+                        desp.descricao || "-"
+                      )}
+                    </td>
+                    <td>
+                      {editing === desp._id ? (
+                        <>
+                          <ActionButton onClick={handleEditSave}>
+                            <Check size={18} weight="bold" />
+                            Salvar
+                          </ActionButton>
+                          <ActionButton onClick={handleEditCancel}>
+                            <X size={18} weight="bold" />
+                            Cancelar
+                          </ActionButton>
+                        </>
+                      ) : (
+                        <>
+                          <ActionButton onClick={() => handleEdit(desp)}>
+                            <PencilSimple size={18} weight="bold" />
+                            Editar
+                          </ActionButton>
+                          <ActionButton onClick={() => handleDelete(desp._id)}>
+                            Deletar
+                          </ActionButton>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}

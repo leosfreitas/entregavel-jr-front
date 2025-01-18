@@ -75,3 +75,40 @@ export async function deleteDespesa(despesaId: string) {
   const data = await response.json();
   return data; 
 }
+
+export async function editDespesa(
+  despesaId: string,
+  tipo: string,
+  valor: string,
+  data: string,
+  descricao: string
+): Promise<{ response: Response; responseData: any }> {
+  const { apiBaseUrl } = config;
+  const requestRoute = `/user/edit-despesa/${despesaId}`;
+
+  let options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      tipo,
+      valor,
+      data,
+      descricao,
+    }),
+    credentials: "include" as RequestCredentials,
+  };
+
+  let response = await fetch(apiBaseUrl + requestRoute, options);
+
+  if (!response.ok) {
+    let errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || "Erro ao editar a despesa");
+  }
+
+  let responseData = await response.json();
+  console.log("Despesa editada com sucesso:", responseData);
+
+  return { response, responseData };
+}

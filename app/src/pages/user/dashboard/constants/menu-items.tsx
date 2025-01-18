@@ -3,6 +3,7 @@ import { User } from '@phosphor-icons/react';
 import { SignOut } from '@phosphor-icons/react';
 import { Money } from '@phosphor-icons/react';
 import { Clock } from '@phosphor-icons/react';
+import { Calculator } from '@phosphor-icons/react';
 
 export const menuItems = [
     {
@@ -20,6 +21,12 @@ export const menuItems = [
         label: 'Finanças',
         icon: <Money />,
         href: '/user/dashboard/finances',
+    },
+
+    {
+        label: 'Orçamentos',
+        icon: <Calculator />,
+        href: '/user/dashboard/budgets',
     },
 
     {
