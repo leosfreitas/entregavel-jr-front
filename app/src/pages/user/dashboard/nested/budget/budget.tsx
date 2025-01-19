@@ -96,8 +96,8 @@ export const Budget = () => {
                         <td className="p-2  text-center">R$ {bud.valor}</td>
                         <td className="p-2  text-center">
                           <Button variant="destructive" 
-                            className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            size="sm" onClick={() => handleDelete(bud._id)}>
+                              className="rounded-md bg-[#b91c1c] px-1 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#991b1b] focus:outline-none focus:ring-2 focus:ring-[#b91c1c] focus:ring-offset-1"
+                              size="sm" onClick={() => handleDelete(bud._id)}>
                             <X size={16} weight="bold" /> Deletar
                           </Button>
                         </td>
@@ -155,7 +155,8 @@ export const Budget = () => {
             />
           </div>
 
-          <Button type="submit" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 pb-2 rounded">
+          <Button type="submit" className="rounded-md bg-[#3c50e0] px-2 py-2 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+          >
             <PlusCircle size={18}
              weight="bold" />
             Criar Orçamento

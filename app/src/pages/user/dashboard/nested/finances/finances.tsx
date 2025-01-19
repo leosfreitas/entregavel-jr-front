@@ -218,26 +218,26 @@ export const Finances = () => {
                         {editing === desp._id ? (
                           <>
                             <Button variant="secondary" size="sm" 
-                            className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            onClick={handleEditCancel}>
+                              className="rounded-md bg-[#b91c1c] px-1 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#991b1b] focus:outline-none focus:ring-2 focus:ring-[#b91c1c] focus:ring-offset-1"
+                              onClick={handleEditCancel}>
                               <X size={16} weight="bold" /> Cancelar
                             </Button>
                             <Button variant="default" 
-                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            size="sm" onClick={handleEditSave}>
+                              className="rounded-md bg-[#3c50e0] px-2 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+                              size="sm" onClick={handleEditSave}>
                               <Check size={16} weight="bold" /> Salvar
                             </Button>
                           </>
                         ) : (
                           <>
                             <Button variant="destructive" 
-                              className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                              className="rounded-md bg-[#b91c1c] px-1 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#991b1b] focus:outline-none focus:ring-2 focus:ring-[#b91c1c] focus:ring-offset-1"
                               size="sm" onClick={() => handleDelete(desp._id)}>
                               <X size={16} weight="bold" /> Deletar
                             </Button>
                             <Button variant="default" 
-                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            size="sm" onClick={() => handleEdit(desp)}>
+                              className="rounded-md bg-[#3c50e0] px-2 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+                              size="sm" onClick={() => handleEdit(desp)}>
                               <PencilSimple size={16} weight="bold" /> Editar
                             </Button>
                           </>
@@ -326,26 +326,26 @@ export const Finances = () => {
                         {editing === rec._id ? (
                           <>
                             <Button variant="secondary" size="sm" 
-                            className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            onClick={handleEditCancel}>
+                              className="rounded-md bg-[#b91c1c] px-1 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#991b1b] focus:outline-none focus:ring-2 focus:ring-[#b91c1c] focus:ring-offset-1"
+                              onClick={handleEditCancel}>
                               <X size={16} weight="bold" /> Cancelar
                             </Button>
                             <Button variant="default" 
-                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            size="sm" onClick={handleEditSave}>
+                              className="rounded-md bg-[#3c50e0] px-2 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+                              size="sm" onClick={handleEditSave}>
                               <Check size={16} weight="bold" /> Salvar
                             </Button>
                           </>
                         ) : (
                           <>
                             <Button variant="destructive" 
-                              className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                              className="rounded-md bg-[#b91c1c] px-1 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#991b1b] focus:outline-none focus:ring-2 focus:ring-[#b91c1c] focus:ring-offset-1"
                               size="sm" onClick={() => handleDelete(rec._id)}>
                               <X size={16} weight="bold" /> Deletar
                             </Button>
                             <Button variant="default" 
-                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-                            size="sm" onClick={() => handleEdit(rec)}>
+                              className="rounded-md bg-[#3c50e0] px-2 py-1 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+                              size="sm" onClick={() => handleEdit(rec)}>
                               <PencilSimple size={16} weight="bold" /> Editar
                             </Button>
                           </>
@@ -439,8 +439,8 @@ export const Finances = () => {
 
       <Button
         type="submit"
-        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-      >
+        className="rounded-md bg-[#3c50e0] px-2 py-2 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+        >
         <PlusCircle size={18} weight="bold" />
         Adicionar
       </Button>

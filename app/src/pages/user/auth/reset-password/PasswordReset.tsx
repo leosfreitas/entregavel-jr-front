@@ -36,7 +36,7 @@ export const PasswordReset = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-[#eff3f7]">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
         <div className="flex justify-center mb-8">
           <TrendUp
@@ -90,8 +90,8 @@ export const PasswordReset = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-[#3c50e0] px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
+            className="w-full rounded-md bg-[#3c50e0] px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-[#324abc] focus:outline-none focus:ring-2 focus:ring-[#3c50e0] focus:ring-offset-1"
+            >
             Redefinir Senha
           </button>
         </form>
