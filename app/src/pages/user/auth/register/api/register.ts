@@ -8,7 +8,7 @@ export async function registerRequest(formData: {
   phone: string;
 }): Promise<Response> {
   let { apiBaseUrl } = config;
-  let requestRoute = '/appraiser/auth/register';
+  let requestRoute = '/user/auth/register';
 
   let options = {
     method: 'POST',

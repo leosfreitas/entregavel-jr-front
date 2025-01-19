@@ -1,9 +1,9 @@
 import { config } from "@/config/config";
 import { Phone } from "lucide-react";
 
-export async function getAppraiserData(): Promise<any> {
+export async function getUserData(): Promise<any> {
   const { apiBaseUrl } = config;
-  const requestRoute = "/appraiser/data";
+  const requestRoute = "/user/data";
 
   const options = {
     method: "GET",
@@ -19,14 +19,14 @@ export async function getAppraiserData(): Promise<any> {
   return data;
 }
 
-export async function updateAppraiserData(
+export async function updateUserData(
     name: string,
     email: string,
     cpf: string,
     phone: string
   ): Promise<{ response: Response; responseData: any }> {
     const { apiBaseUrl } = config;
-    const requestRoute = "/appraiser/update/data";
+    const requestRoute = "/user/update/data";
   
     const options = {
       method: "PUT",

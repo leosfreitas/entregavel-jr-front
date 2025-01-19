@@ -2,7 +2,7 @@ import { config } from "@/config/config";
 
 export async function checkToken(): Promise<{ response: Response }> {
     let { apiBaseUrl } = config;
-    let requestRoute = '/appraiser/auth/check/token';
+    let requestRoute = '/user/auth/check/token';
     let options = {
         method: 'POST',
         credentials: 'include' as RequestCredentials,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAppraiserData, updateAppraiserData } from "./api/profile";
+import { getUserData, updateUserData } from "./api/profile";
 import toast from "react-hot-toast";
 
 export const Profile = () => {
@@ -16,7 +16,7 @@ export const Profile = () => {
 
   const fetchAppraiserData = async () => {
     try {
-      const data = await getAppraiserData();
+      const data = await getUserData();
       setAppraiserData(data.data);
       setName(data.data.name);
       setEmail(data.data.email);
@@ -31,7 +31,7 @@ export const Profile = () => {
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await updateAppraiserData(name, email, cpf, phone);
+      const response = await updateUserData(name, email, cpf, phone);
       if (response.response.ok) {
         toast.success("Dados atualizados com sucesso!");
         fetchAppraiserData();

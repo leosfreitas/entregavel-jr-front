@@ -2,7 +2,7 @@ import { config } from "@/config/config";
 
 export async function requestPasswordReset(email: string): Promise<{ response: Response }> {
     let { apiBaseUrl } = config;
-    let requestRoute = '/appraiser/auth/pwd/recovery/email'; 
+    let requestRoute = '/user/auth/pwd/recovery/email'; 
     let options = {
         method: 'POST',
         headers: {
