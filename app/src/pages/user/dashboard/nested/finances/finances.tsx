@@ -30,6 +30,38 @@ export const Finances = () => {
     descricao: "",
   });
 
+  // Arrays de opções para Receita e Despesa
+  const receitaOptions = [
+    "Salário",
+    "Bonificações",
+    "Comissões",
+    "Dividendos",
+    "Juros",
+    "Rendimentos",
+    "Freelance",
+    "Lucro de Vendas",
+    "Aposentadoria",
+    "Pensão",
+    "Investimentos"
+  ];
+
+  const despesaOptions = [
+    "Habitação",
+    "Transporte",
+    "Alimentação",
+    "Saúde",
+    "Educação",
+    "Lazer",
+    "Roupas",
+    "Tecnologia",
+    "Assinaturas e Serviços",
+    "Investimentos",
+    "Doações",
+    "Impostos",
+    "Dívidas",
+    "Outros"
+  ];
+
   useEffect(() => {
     refreshData();
   }, []);
@@ -347,20 +379,20 @@ export const Finances = () => {
               className="p-2 border rounded w-full"
             >
               <option value="">Selecione</option>
-              <option value="Habitação">Habitação</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Alimentação">Alimentação</option>
-              <option value="Saúde">Saúde</option>
-              <option value="Educação">Educação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Roupas">Roupas</option>
-              <option value="Tecnologia">Tecnologia</option>
-              <option value="Assinaturas e Serviços">Assinaturas e Serviços</option>
-              <option value="Investimentos">Investimentos</option>
-              <option value="Doações">Doações</option>
-              <option value="Impostos">Impostos</option>
-              <option value="Dívidas">Dívidas</option>
-              <option value="Outros">Outros</option>
+              {categoria === "Receita" &&
+                receitaOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))
+              }
+              {categoria === "Despesa" &&
+                despesaOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))
+              }
             </select>
           </div>
 
@@ -396,7 +428,10 @@ export const Finances = () => {
             />
           </div>
 
-          <Button type="submit" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+          <Button 
+            type="submit" 
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+          >
             <PlusCircle size={18} weight="bold" />
             Criar {categoria || "Finance"}
           </Button>
