@@ -7,6 +7,7 @@ import { PasswordReset } from './auth/reset-password/PasswordReset';
 import { Home } from './dashboard/nested/home/homepage';
 import { Profile } from './dashboard/nested/profile/profile';
 import { Finances } from './dashboard/nested/finances/finances';
+import { Budget } from './dashboard/nested/budget/budget';
 import { History } from './dashboard/nested/history/history';
 import { checkToken } from './auth/token/api/CheckToken';
 
@@ -63,6 +64,11 @@ const routes: RouteObject[] = [
         path: "finances",
         element: <Finances />,
         id: "finances",
+      },
+      {
+        path: "budget",
+        element: <Budget />,
+        id: "budget",
       },
       {
         path: "history",

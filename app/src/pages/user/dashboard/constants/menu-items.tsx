@@ -26,7 +26,7 @@ export const menuItems = [
     {
         label: 'Orçamentos',
         icon: <Calculator />,
-        href: '/user/dashboard/budgets',
+        href: '/user/dashboard/budget',
     },
 
     {
