@@ -7,7 +7,7 @@ import {
   deleteFinance, 
   editFinance 
 } from "./api/finances";
-import { CurrencyDollar, PlusCircle, PencilSimple, Check, X } from "@phosphor-icons/react";
+import { PlusCircle, PencilSimple, Check, X } from "@phosphor-icons/react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -30,7 +30,6 @@ export const Finances = () => {
     descricao: "",
   });
 
-  // Arrays de opções para Receita e Despesa
   const receitaOptions = [
     "Salário",
     "Bonificações",
@@ -145,297 +144,310 @@ export const Finances = () => {
   };
 
   return (
-    <div className="bg-white p-6 m-6 rounded shadow relative">
-      <h2 className="text-2xl font-bold flex items-center gap-2 mb-6 text-gray-800">
-        <CurrencyDollar size={28} weight="bold" />
+    <div className="p-4 m-4">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         Despesas e Receitas
       </h2>
-
-      {/* Tabela de despesas */}
-      <section className="mb-10">
-        <h3 className="text-xl font-semibold mb-3 text-gray-700">Minhas Despesas</h3>
-        <ScrollArea className="h-80 border border-gray-300 mb-6">
-          <table className="min-w-full border-collapse">
-            <thead className="bg-gray-200 sticky top-0">
-              <tr>
-                {["Tipo", "Valor", "Data", "Descrição", "Ações"].map(header => (
-                  <th 
-                    key={header} 
-                    className="p-2 border border-gray-300 font-semibold text-center"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {despesas.length > 0 ? (
-                despesas.map((desp) => (
-                  <tr key={desp._id} className="odd:bg-white even:bg-gray-50">
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === desp._id ? (
-                        <input 
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.tipo}
-                          onChange={(e) => handleEditChange("tipo", e.target.value)}
-                        />
-                      ) : (
-                        desp.tipo
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === desp._id ? (
-                        <input 
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.valor}
-                          onChange={(e) => handleEditChange("valor", e.target.value)}
-                        />
-                      ) : (
-                        `R$ ${desp.valor}`
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === desp._id ? (
-                        <input 
-                          type="date"
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.data}
-                          onChange={(e) => handleEditChange("data", e.target.value)}
-                        />
-                      ) : (
-                        desp.data
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === desp._id ? (
-                        <input 
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.descricao}
-                          onChange={(e) => handleEditChange("descricao", e.target.value)}
-                        />
-                      ) : (
-                        desp.descricao || "-"
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 flex gap-2 justify-center">
-                      {editing === desp._id ? (
-                        <>
-                          <Button variant="default" size="sm" onClick={handleEditSave}>
-                            <Check size={16} weight="bold" /> Salvar
-                          </Button>
-                          <Button variant="secondary" size="sm" onClick={handleEditCancel}>
-                            <X size={16} weight="bold" /> Cancelar
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button variant="default" size="sm" onClick={() => handleEdit(desp)}>
-                            <PencilSimple size={16} weight="bold" /> Editar
-                          </Button>
-                          <Button variant="destructive" size="sm" onClick={() => handleDelete(desp._id)}>
-                            <X size={16} weight="bold" /> Deletar
-                          </Button>
-                        </>
-                      )}
+      <div className="space-y-10">
+        <div className="rounded-sm border border-stroke bg-white px-5 pt-4 pb-2.5 shadow-default w-2/3 mx-auto">
+          <h3 className="text-xl font-semibold mb-3 text-black">Minhas Despesas</h3>
+          <ScrollArea className="h-80  mb-6">
+            <table className="min-w-full border-collapse">
+              <thead className="bg-gray-200 sticky top-0">
+                <tr>
+                  {["Tipo", "Valor", "Data", "Descrição", "Ações"].map(header => (
+                    <th 
+                      key={header} 
+                      className="p-2 border font-semibold text-center "
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="border-b border-gray-200">
+                {despesas.length > 0 ? (
+                  despesas.map((desp) => (
+                    <tr key={desp._id} className="odd:bg-white even:bg-gray-50 border-b border-gray-200">
+                      <td className="p-2  text-center">
+                        {editing === desp._id ? (
+                          <input 
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.tipo}
+                            onChange={(e) => handleEditChange("tipo", e.target.value)}
+                          />
+                        ) : (
+                          desp.tipo
+                        )}
+                      </td>
+                      <td className="p-2 text-center">
+                        {editing === desp._id ? (
+                          <input 
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.valor}
+                            onChange={(e) => handleEditChange("valor", e.target.value)}
+                          />
+                        ) : (
+                          `R$ ${desp.valor}`
+                        )}
+                      </td>
+                      <td className="p-2  text-center">
+                        {editing === desp._id ? (
+                          <input 
+                            type="date"
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.data}
+                            onChange={(e) => handleEditChange("data", e.target.value)}
+                          />
+                        ) : (
+                          desp.data
+                        )}
+                      </td>
+                      <td className="p-2  text-center">
+                        {editing === desp._id ? (
+                          <input 
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.descricao}
+                            onChange={(e) => handleEditChange("descricao", e.target.value)}
+                          />
+                        ) : (
+                          desp.descricao || "-"
+                        )}
+                      </td>
+                      <td className="p-2  flex gap-2 justify-center">
+                        {editing === desp._id ? (
+                          <>
+                            <Button variant="secondary" size="sm" 
+                            className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            onClick={handleEditCancel}>
+                              <X size={16} weight="bold" /> Cancelar
+                            </Button>
+                            <Button variant="default" 
+                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            size="sm" onClick={handleEditSave}>
+                              <Check size={16} weight="bold" /> Salvar
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <Button variant="destructive" 
+                              className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                              size="sm" onClick={() => handleDelete(desp._id)}>
+                              <X size={16} weight="bold" /> Deletar
+                            </Button>
+                            <Button variant="default" 
+                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            size="sm" onClick={() => handleEdit(desp)}>
+                              <PencilSimple size={16} weight="bold" /> Editar
+                            </Button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="p-4 text-center text-gray-500">
+                      Nenhuma despesa cadastrada.
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={5} className="p-4 text-center text-gray-500">
-                    Nenhuma despesa cadastrada.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </ScrollArea>
-      </section>
+                )}
+              </tbody>
+            </table>
+          </ScrollArea>
+        </div>
 
-      {/* Tabela de receitas */}
-      <section className="mb-10">
-        <h3 className="text-xl font-semibold mb-3 text-gray-700">Minhas Receitas</h3>
-        <ScrollArea className="h-80 border border-gray-300 mb-6">
-          <table className="min-w-full border-collapse">
-            <thead className="bg-gray-200 sticky top-0">
-              <tr>
-                {["Tipo", "Valor", "Data", "Descrição", "Ações"].map(header => (
-                  <th 
-                    key={header} 
-                    className="p-2 border border-gray-300 font-semibold text-center"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {receitas.length > 0 ? (
-                receitas.map((rec) => (
-                  <tr key={rec._id} className="odd:bg-white even:bg-gray-50">
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === rec._id ? (
-                        <input 
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.tipo}
-                          onChange={(e) => handleEditChange("tipo", e.target.value)}
-                        />
-                      ) : (
-                        rec.tipo
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === rec._id ? (
-                        <input 
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.valor}
-                          onChange={(e) => handleEditChange("valor", e.target.value)}
-                        />
-                      ) : (
-                        `R$ ${rec.valor}`
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === rec._id ? (
-                        <input 
-                          type="date"
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.data}
-                          onChange={(e) => handleEditChange("data", e.target.value)}
-                        />
-                      ) : (
-                        rec.data
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      {editing === rec._id ? (
-                        <input 
-                          className="w-full p-1 border rounded text-center"
-                          value={editFields.descricao}
-                          onChange={(e) => handleEditChange("descricao", e.target.value)}
-                        />
-                      ) : (
-                        rec.descricao || "-"
-                      )}
-                    </td>
-                    <td className="p-2 border border-gray-300 flex gap-2 justify-center">
-                      {editing === rec._id ? (
-                        <>
-                          <Button variant="default" size="sm" onClick={handleEditSave}>
-                            <Check size={16} weight="bold" /> Salvar
-                          </Button>
-                          <Button variant="secondary" size="sm" onClick={handleEditCancel}>
-                            <X size={16} weight="bold" /> Cancelar
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button variant="default" size="sm" onClick={() => handleEdit(rec)}>
-                            <PencilSimple size={16} weight="bold" /> Editar
-                          </Button>
-                          <Button variant="destructive" size="sm" onClick={() => handleDelete(rec._id)}>
-                            <X size={16} weight="bold" /> Deletar
-                          </Button>
-                        </>
-                      )}
+        <div className="rounded-sm border border-stroke bg-white px-5 pt-4 pb-2.5 shadow-default w-2/3 mx-auto">
+          <h3 className="text-xl font-semibold mb-3 text-black">Minhas Receitas</h3>
+          <ScrollArea className="h-80  mb-6">
+            <table className="min-w-full border-collapse">
+              <thead className="bg-gray-200 sticky top-0">
+                <tr>
+                  {["Tipo", "Valor", "Data", "Descrição", "Ações"].map(header => (
+                    <th 
+                      key={header} 
+                      className="p-2  font-semibold text-center"
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="border-b border-gray-200">
+                {receitas.length > 0 ? (
+                  receitas.map((rec) => (
+                    <tr key={rec._id} className="odd:bg-white even:bg-gray-50 border-b border-gray-200">
+                      <td className="p-2  text-center">
+                        {editing === rec._id ? (
+                          <input 
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.tipo}
+                            onChange={(e) => handleEditChange("tipo", e.target.value)}
+                          />
+                        ) : (
+                          rec.tipo
+                        )}
+                      </td>
+                      <td className="p-2  text-center">
+                        {editing === rec._id ? (
+                          <input 
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.valor}
+                            onChange={(e) => handleEditChange("valor", e.target.value)}
+                          />
+                        ) : (
+                          `R$ ${rec.valor}`
+                        )}
+                      </td>
+                      <td className="p-2  text-center">
+                        {editing === rec._id ? (
+                          <input 
+                            type="date"
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.data}
+                            onChange={(e) => handleEditChange("data", e.target.value)}
+                          />
+                        ) : (
+                          rec.data
+                        )}
+                      </td>
+                      <td className="p-2  text-center">
+                        {editing === rec._id ? (
+                          <input 
+                            className="w-full p-1 border rounded text-center"
+                            value={editFields.descricao}
+                            onChange={(e) => handleEditChange("descricao", e.target.value)}
+                          />
+                        ) : (
+                          rec.descricao || "-"
+                        )}
+                      </td>
+                      <td className="p-2  flex gap-2 justify-center">
+                        {editing === rec._id ? (
+                          <>
+                            <Button variant="secondary" size="sm" 
+                            className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            onClick={handleEditCancel}>
+                              <X size={16} weight="bold" /> Cancelar
+                            </Button>
+                            <Button variant="default" 
+                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            size="sm" onClick={handleEditSave}>
+                              <Check size={16} weight="bold" /> Salvar
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <Button variant="destructive" 
+                              className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                              size="sm" onClick={() => handleDelete(rec._id)}>
+                              <X size={16} weight="bold" /> Deletar
+                            </Button>
+                            <Button variant="default" 
+                            className="rounded-md bg-blue-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            size="sm" onClick={() => handleEdit(rec)}>
+                              <PencilSimple size={16} weight="bold" /> Editar
+                            </Button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="p-4 text-center text-gray-500">
+                      Nenhuma receita cadastrada.
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={5} className="p-4 text-center text-gray-500">
-                    Nenhuma receita cadastrada.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </ScrollArea>
-      </section>
-
-      {/* Formulário fixo para criar finance */}
-      <div className="sticky bottom-0 bg-white p-6 border-t border-gray-300 z-10 flex justify-center">
-        <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-4 justify-center">
-          <div className="flex flex-col min-w-[120px]">
-            <label className="font-semibold text-gray-700 mb-1">Categoria</label>
-            <select
-              value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
-              required
-              className="p-2 border rounded w-full"
-            >
-              <option value="">Selecione</option>
-              <option value="Despesa">Despesa</option>
-              <option value="Receita">Receita</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col min-w-[120px]">
-            <label className="font-semibold text-gray-700 mb-1">Tipo</label>
-            <select
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-              required
-              className="p-2 border rounded w-full"
-            >
-              <option value="">Selecione</option>
-              {categoria === "Receita" &&
-                receitaOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))
-              }
-              {categoria === "Despesa" &&
-                despesaOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))
-              }
-            </select>
-          </div>
-
-          <div className="flex flex-col min-w-[120px]">
-            <label className="font-semibold text-gray-700 mb-1">Valor</label>
-            <input
-              value={valor}
-              onChange={(e) => setValor(e.target.value)}
-              required
-              placeholder="Ex: 250.00"
-              className="p-2 border rounded w-full"
-            />
-          </div>
-
-          <div className="flex flex-col min-w-[120px]">
-            <label className="font-semibold text-gray-700 mb-1">Data</label>
-            <input
-              type="date"
-              value={data}
-              onChange={(e) => setData(e.target.value)}
-              required
-              className="p-2 border rounded w-full"
-            />
-          </div>
-
-          <div className="flex flex-col min-w-[120px]">
-            <label className="font-semibold text-gray-700 mb-1">Descrição</label>
-            <input
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              placeholder="Ex: Compra de mercado"
-              className="p-2 border rounded w-full"
-            />
-          </div>
-
-          <Button 
-            type="submit" 
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                )}
+              </tbody>
+            </table>
+          </ScrollArea>
+        </div>
+        <div className="rounded-sm border border-stroke bg-white px-5 pt-4 pb-2.5 shadow-default w-2/3 mx-auto">
+      <h3 className="text-xl font-semibold mb-3 text-black text-left">Criar Receita ou Despesa</h3>
+      <form onSubmit={handleSubmit} className="flex flex-wrap justify-center items-end gap-4">
+        <div className="flex flex-col min-w-[120px]">
+          <label className="font-semibold text-gray-700 mb-1">Categoria</label>
+          <select
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            required
+            className="p-2 border rounded w-full"
           >
-            <PlusCircle size={18} weight="bold" />
-            Criar {categoria || "Finance"}
-          </Button>
-        </form>
+            <option value="">Selecione</option>
+            <option value="Despesa">Despesa</option>
+            <option value="Receita">Receita</option>
+          </select>
+        </div>
+
+      <div className="flex flex-col min-w-[120px]">
+        <label className="font-semibold text-gray-700 mb-1">Tipo</label>
+        <select
+          value={tipo}
+          onChange={(e) => setTipo(e.target.value)}
+          required
+          className="p-2 border rounded w-full"
+        >
+          <option value="">Selecione</option>
+          {categoria === "Receita" &&
+            receitaOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          {categoria === "Despesa" &&
+            despesaOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+        </select>
+      </div>
+
+      <div className="flex flex-col min-w-[120px]">
+        <label className="font-semibold text-gray-700 mb-1">Valor</label>
+        <input
+          value={valor}
+          onChange={(e) => setValor(e.target.value)}
+          required
+          placeholder="Ex: 250.00"
+          className="p-2 border rounded w-full"
+        />
+      </div>
+
+      <div className="flex flex-col min-w-[120px]">
+        <label className="font-semibold text-gray-700 mb-1">Data</label>
+        <input
+          type="date"
+          value={data}
+          onChange={(e) => setData(e.target.value)}
+          required
+          className="p-2 border rounded w-full"
+        />
+      </div>
+
+      <div className="flex flex-col min-w-[120px]">
+        <label className="font-semibold text-gray-700 mb-1">Descrição</label>
+        <input
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
+          placeholder="Ex: Compra de mercado"
+          className="p-2 border rounded w-full"
+        />
+      </div>
+
+      <Button
+        type="submit"
+        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+      >
+        <PlusCircle size={18} weight="bold" />
+        Adicionar
+      </Button>
+    </form>
+  </div>
+
+        
       </div>
     </div>
   );

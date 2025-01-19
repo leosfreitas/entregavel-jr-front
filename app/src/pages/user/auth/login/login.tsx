@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { login } from './api/Login'; 
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'; 
+import { TrendUp } from "@phosphor-icons/react";
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,10 +23,19 @@ export const Login = () => {
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
         <div className="flex justify-center mb-8">
-          <img
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Logo"
-            className="w-20 h-20"
+        <TrendUp
+            weight="bold"
+            className="icon"
+            style={{
+              fontSize: "5rem", 
+              color: "#3c50e0",
+              borderRadius: "15%",
+              marginTop: "3px",
+              padding: "2px", 
+              display: "inline-flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+            }}
           />
         </div>
 
@@ -55,7 +65,7 @@ export const Login = () => {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Senha
               </label>
-              <a href="/user/auth/pwd/recovery/email" className="font-medium text-indigo-600 hover:underline">
+              <a href="/user/auth/pwd/recovery/email" className="font-medium text-[#3c50e0] hover:underline">
                 Esqueceu sua senha?
               </a>
             </div>
@@ -74,7 +84,7 @@ export const Login = () => {
           <div>
             <button
               type="submit"
-              className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
+              className="w-full rounded-md bg-[#3c50e0] px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
             >
               Entrar
             </button>
@@ -83,7 +93,7 @@ export const Login = () => {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Não tem uma conta?{' '}
-          <a href="/user/auth/register" className="font-medium text-indigo-600 hover:underline">
+          <a href="/user/auth/register" className="font-medium text-[#3c50e0] hover:underline">
             Cadastre-se
           </a>
         </p>

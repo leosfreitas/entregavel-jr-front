@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { registerRequest } from './api/register';
+import { TrendUp } from "@phosphor-icons/react";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -51,11 +52,20 @@ export const Register = () => {
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-4xl p-8 bg-white shadow-lg rounded-lg">
         <div className="flex justify-center mb-8">
-          <img
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Logo"
-            className="w-20 h-20"
-          />
+          <TrendUp
+              weight="bold"
+              className="icon"
+              style={{
+                fontSize: "5rem", 
+                color: "#3c50e0",
+                borderRadius: "15%",
+                marginTop: "3px",
+                padding: "2px", 
+                display: "inline-flex", 
+                alignItems: "center", 
+                justifyContent: "center",
+              }}
+            />
         </div>
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
           Cadastre-se no FinTrack
@@ -165,7 +175,7 @@ export const Register = () => {
           <button
             type="submit"
             onClick={handleSubmit}
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
+            className="w-full rounded-md bg-[#3c50e0] px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
           >
             Cadastrar
           </button>
@@ -173,7 +183,7 @@ export const Register = () => {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Já tem uma conta?{' '}
-          <a href="/user/auth/login" className="font-medium text-indigo-600 hover:underline">
+          <a href="/user/auth/login" className="font-medium text-[#3c50e0] hover:underline">
             Faça login
           </a>
         </p>

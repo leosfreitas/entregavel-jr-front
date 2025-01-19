@@ -40,10 +40,16 @@ export const RequestPasswordReset = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-md bg-[#3c50e0] px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             Enviar Link
           </button>
+            <p className="mt-6 text-center text-sm text-gray-600">
+            Lembrou da senha?{' '}
+            <a href="/user/auth/login" className="font-medium text-[#3c50e0] hover:underline">
+              Faça login
+            </a>
+          </p>
         </form>
       </div>
     </div>

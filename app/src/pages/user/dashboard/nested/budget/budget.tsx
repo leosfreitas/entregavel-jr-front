@@ -57,58 +57,60 @@ export const Budget = () => {
     }
   };
 
-  // (Opcional) Funções para edição poderiam ser implementadas aqui se necessário.
-
   return (
-    <div className="bg-white p-6 m-6 rounded shadow relative">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">
+    <div className="p-4 m-4">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         Orçamentos
       </h2>
 
-      <section className="mb-10">
-        <h3 className="text-xl font-semibold mb-3 text-gray-700">Meus Orçamentos</h3>
-        <ScrollArea className="h-80 border border-gray-300 mb-6">
-          <table className="min-w-full border-collapse">
+      <div className="space-y-10">
+        <div className="rounded-sm border border-stroke bg-white px-5 pt-4 pb-2.5 shadow-default w-2/3 mx-auto">
+          <h3 className="text-xl font-semibold mb-3 text-black">Meus Orçamentos</h3>
+            <ScrollArea className="h-80  mb-6">
+            <table className="min-w-full border-collapse">
             <thead className="bg-gray-200 sticky top-0">
-              <tr>
-                {["Tipo", "Valor", "Ações"].map(header => (
-                  <th 
-                    key={header} 
-                    className="p-2 border border-gray-300 font-semibold text-center"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {budgets.length > 0 ? (
-                budgets.map((bud) => (
-                  <tr key={bud._id} className="odd:bg-white even:bg-gray-50">
-                    <td className="p-2 border border-gray-300 text-center">{bud.tipo}</td>
-                    <td className="p-2 border border-gray-300 text-center">R$ {bud.valor}</td>
-                    <td className="p-2 border border-gray-300 text-center">
-                      <Button variant="destructive" size="sm" onClick={() => handleDelete(bud._id)}>
-                        <X size={16} weight="bold" /> Deletar
-                      </Button>
-                    </td>
+                  <tr>
+                    {["Tipo", "Valor", "Ações"].map(header => (
+                      <th 
+                        key={header} 
+                        className="p-2 border font-semibold text-center "
+                      >
+                        {header}
+                      </th>
+                    ))}
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={3} className="p-4 text-center text-gray-500">
-                    Nenhum orçamento cadastrado.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </ScrollArea>
-      </section>
+                </thead>
+                <tbody className="border-b border-gray-200">
+                {budgets.length > 0 ? (
+                    budgets.map((bud) => (
+                      <tr key={bud._id} className="odd:bg-white even:bg-gray-50 border-b border-gray-200">
+                        <td className="p-2  text-center">{bud.tipo}</td>
+                        <td className="p-2  text-center">R$ {bud.valor}</td>
+                        <td className="p-2  text-center">
+                          <Button variant="destructive" 
+                            className="rounded-md bg-red-600 px-1 py-1 text-sm font-semibold text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                            size="sm" onClick={() => handleDelete(bud._id)}>
+                            <X size={16} weight="bold" /> Deletar
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={3} className="p-4 text-center text-gray-500">
+                        Nenhum orçamento cadastrado.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </ScrollArea>
+          </div>
 
-      <div className="sticky bottom-0 bg-white p-6 border-t border-gray-300 z-10 flex justify-center">
-        <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-4 justify-center">
-          <div className="flex flex-col min-w-[120px]">
+          <div className="rounded-md border border-stroke bg-white px-8 py-6 shadow-default w-2/3 mx-auto h-[200px]">
+          <h3 className="text-xl font-semibold mb-3 text-black">Criar Orçamento</h3>
+        <form onSubmit={handleSubmit} className="flex flex-wrap justify-center items-end gap-4">
+        <div className="flex flex-col min-w-[120px]">
             <label className="font-semibold text-gray-700 mb-1">Tipo</label>
             <select
               value={tipo}
@@ -145,12 +147,14 @@ export const Budget = () => {
             />
           </div>
 
-          <Button type="submit" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-            <PlusCircle size={18} weight="bold" />
+          <Button type="submit" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 pb-2 rounded">
+            <PlusCircle size={18}
+             weight="bold" />
             Criar Orçamento
           </Button>
         </form>
       </div>
     </div>
+  </div>
   );
 };

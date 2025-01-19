@@ -39,6 +39,7 @@ export const menuItems = [
         label: 'Sair',
         icon: <SignOut />,
         href: '/logout',
+        
     }
 
 ];
