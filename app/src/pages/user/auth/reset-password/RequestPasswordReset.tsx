@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { requestPasswordReset } from './api/RequestPasswordReset';
+import { TrendUp } from '@phosphor-icons/react';
 
 export const RequestPasswordReset = () => {
   const [email, setEmail] = useState('');
@@ -19,6 +20,22 @@ export const RequestPasswordReset = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
+      <div className="flex justify-center mb-8">
+        <TrendUp
+            weight="bold"
+            className="icon"
+            style={{
+              fontSize: "5rem", 
+              color: "#3c50e0",
+              borderRadius: "15%",
+              marginTop: "3px",
+              padding: "2px", 
+              display: "inline-flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+            }}
+          />
+        </div>
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
           Redefinição de Senha
         </h2>

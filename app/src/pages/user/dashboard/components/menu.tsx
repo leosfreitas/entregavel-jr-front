@@ -3,15 +3,20 @@ import styled from "styled-components";
 import { TrendUp } from "@phosphor-icons/react";
 import { logout } from '../../auth/logout/api/logout';
 import { SignOut } from '@phosphor-icons/react';
+import { toast } from "react-hot-toast";
 
 export const Menu = () => {
     const handleLogout = async () => {
         try {
+            toast.loading("Realizando logout...");
             await logout();
-            window.location.href = '/user/auth/login'; // Redireciona para a página de login após o logout.
+            toast.dismiss();
+            toast.success("Logout realizado com sucesso!");
+            window.location.href = '/user/auth/login'; 
         } catch (error) {
+            toast.dismiss(); 
+            toast.error("Não foi possível realizar o logout. Tente novamente.");
             console.error('Erro ao fazer logout:', error);
-            alert('Não foi possível realizar o logout. Tente novamente.');
         }
     };
 
@@ -115,4 +120,3 @@ const MenuStyles = styled.div`
         }
     }
 `;
-

@@ -18,6 +18,14 @@ export const Budget = () => {
   const [editFields, setEditFields] = useState({ tipo: "", valor: "" });
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
     refreshData();
   }, []);
 
@@ -58,8 +66,8 @@ export const Budget = () => {
   };
 
   return (
-    <div className="p-4 m-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+    <div className="flex min-h-screen flex-col p-10">
+      <h2 className="text-2xl font-bold text-gray-800 mb-10 text-center">
         Orçamentos
       </h2>
 

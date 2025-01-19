@@ -79,7 +79,7 @@ const HeaderStyle = styled.div`
   height: 100%;
   width: 100%;
   background-color: white;
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Sombra forte apenas na parte inferior */
   display: flex;
   justify-content: space-between;
   padding: 25px;

@@ -144,7 +144,7 @@ export const Finances = () => {
   };
 
   return (
-    <div className="p-4 m-4">
+    <div className="flex min-h-screen flex-col p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         Despesas e Receitas
       </h2>

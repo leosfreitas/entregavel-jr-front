@@ -7,10 +7,10 @@ export async function createFinance(
   data: string,
   descricao: string
 ): Promise<{ response: Response; responseData: any }> {
-  const { apiBaseUrl } = config;
-  const requestRoute = "/user/create-finance";
+  let { apiBaseUrl } = config;
+  let requestRoute = "/user/create-finance";
 
-  const options = {
+  let options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,55 +25,55 @@ export async function createFinance(
     credentials: "include" as RequestCredentials,
   };
 
-  const response = await fetch(apiBaseUrl + requestRoute, options);
+  let response = await fetch(apiBaseUrl + requestRoute, options);
 
   if (!response.ok) {
     throw new Error("Erro ao criar finance");
   }
 
-  const responseData = await response.json();
+  let responseData = await response.json();
   console.log("finance criada com sucesso:", responseData);
 
   return { response, responseData };
 }
 
 export async function getDespesas(): Promise<any[]> {
-  const { apiBaseUrl } = config;
-  const requestRoute = "/user/get-despesas";
+  let { apiBaseUrl } = config;
+  let requestRoute = "/user/get-despesas";
 
-  const options = {
+  let options = {
     method: "GET",
     credentials: "include" as RequestCredentials,
   };
 
-  const response = await fetch(apiBaseUrl + requestRoute, options);
+  let response = await fetch(apiBaseUrl + requestRoute, options);
 
   if (!response.ok) {
     throw new Error("Erro ao obter despesas");
   }
 
-  const data = await response.json();
+  let data = await response.json();
   console.log("despesas obtidas com sucesso:", data);
 
   return data;
 }
 
 export async function getReceitas(): Promise<any[]> {
-  const { apiBaseUrl } = config;
-  const requestRoute = "/user/get-receitas";
+  let { apiBaseUrl } = config;
+  let requestRoute = "/user/get-receitas";
 
-  const options = {
+  let options = {
     method: "GET",
     credentials: "include" as RequestCredentials,
   };
 
-  const response = await fetch(apiBaseUrl + requestRoute, options);
+  let response = await fetch(apiBaseUrl + requestRoute, options);
 
   if (!response.ok) {
     throw new Error("Erro ao obter receitas");
   }
 
-  const data = await response.json();
+  let data = await response.json();
   console.log("receitas obtidas com sucesso:", data);
 
   return data;
@@ -81,22 +81,22 @@ export async function getReceitas(): Promise<any[]> {
 
 
 export async function deleteFinance(financeId: string) {
-  const { apiBaseUrl } = config;
-  const requestRoute = `/user/delete-finance/${financeId}`;
+  let { apiBaseUrl } = config;
+  let requestRoute = `/user/delete-finance/${financeId}`;
 
-  const options = {
+  let options = {
     method: "DELETE",
     credentials: "include" as RequestCredentials, 
   };
 
-  const response = await fetch(apiBaseUrl + requestRoute, options);
+  let response = await fetch(apiBaseUrl + requestRoute, options);
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
+    let errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.message || "Erro ao deletar a finance");
   }
 
-  const data = await response.json();
+  let data = await response.json();
   return data; 
 }
 
@@ -108,8 +108,8 @@ export async function editFinance(
   data: string,
   descricao: string
 ): Promise<{ response: Response; responseData: any }> {
-  const { apiBaseUrl } = config;
-  const requestRoute = `/user/edit-finance/${financeId}`;
+  let { apiBaseUrl } = config;
+  let requestRoute = `/user/edit-finance/${financeId}`;
 
   let options = {
     method: "PUT",

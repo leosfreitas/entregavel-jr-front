@@ -12,6 +12,14 @@ export const History = () => {
   const [filterDataEnd, setFilterDataEnd] = useState("");
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
     fetchDespesas();
   }, []);
 
@@ -56,9 +64,9 @@ export const History = () => {
   };
 
   return (
-      <div className="p-4 m-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Histórico de Transações
+    <div className="flex min-h-screen flex-col p-10">
+        <h2 className="text-2xl font-bold text-gray-800 mb-10 text-center">
+        Histórico de Transações
         </h2>
 
         {/* Quadrado de Filtros e Buscas */}

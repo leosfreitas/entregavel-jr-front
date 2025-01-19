@@ -13,6 +13,14 @@ export const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+    }, []);
+
+  useEffect(() => {
     fetchUserData();
   }, []);
 
@@ -43,14 +51,14 @@ export const Profile = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#eff3f7]">
+    <div className="flex min-h-screen flex-col">
       <div className="flex justify-center pt-12 pb-12">
         <h1 className="text-2xl font-bold text-gray-800">Perfil</h1>
       </div>
 
       <div className="flex items-start justify-center">
-        <div className="relative min-h-[500px] p-8 bg-white shadow-lg rounded-sm w-2/3 mx-auto">
-            <h3 className="text-xl font-semibold mb-8 text-black">Meu Perfil</h3>
+        <div className="relative min-h-[500px] p-8 bg-white shadow-xl rounded-sm w-2/3 mx-auto">
+        <h3 className="text-xl font-semibold mb-8 text-black">Meu Perfil</h3>
           {userData ? (
             isEditing ? (
               <form onSubmit={handleUpdate} className="space-y-5">

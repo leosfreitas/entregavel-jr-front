@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
+import { TrendUp } from '@phosphor-icons/react';
+import { resetPassword } from './api/PasswordReset';
 
 export const PasswordReset = () => {
   const { token } = useParams<{ token: string }>();
@@ -25,22 +27,7 @@ export const PasswordReset = () => {
     }
 
     try {
-      const response = await fetch(`/api/appraiser/password-reset`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          password: formData.password,
-        }),
-      });
-
-      if (!response.ok) {
-        const { message } = await response.json();
-        throw new Error(message || 'Erro ao redefinir a senha.');
-      }
-
+      await resetPassword(token!, formData.password);
       toast.success('Senha redefinida com sucesso.');
       setTimeout(() => navigate('/user/auth/login'), 2000);
     } catch (error: any) {
@@ -51,6 +38,22 @@ export const PasswordReset = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
+        <div className="flex justify-center mb-8">
+          <TrendUp
+            weight="bold"
+            className="icon"
+            style={{
+              fontSize: '5rem',
+              color: '#3c50e0',
+              borderRadius: '15%',
+              marginTop: '3px',
+              padding: '2px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </div>
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
           Redefinir Senha
         </h2>
@@ -87,7 +90,7 @@ export const PasswordReset = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full rounded-md bg-[#3c50e0] px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             Redefinir Senha
           </button>

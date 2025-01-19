@@ -1,8 +1,8 @@
 import { config } from "@/config/config";
 
 export async function getUserName() {
-    const { apiBaseUrl } = config;
-    const requestRoute = `/user/headbar`;
+    let { apiBaseUrl } = config;
+    let requestRoute = `/user/headbar`;
   
     let options = {
       method: "GET",

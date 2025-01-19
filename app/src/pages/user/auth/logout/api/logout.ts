@@ -1,15 +1,15 @@
 import { config } from "@/config/config";
 
 export async function logout(): Promise<void> {
-  const { apiBaseUrl } = config;
-  const requestRoute = '/user/auth/logout';
-  const options = {
+  let { apiBaseUrl } = config;
+  let requestRoute = '/user/auth/logout';
+  let options = {
     method: 'POST',
     credentials: 'include' as RequestCredentials,
   };
 
   try {
-    const response = await fetch(apiBaseUrl + requestRoute, options);
+    let response = await fetch(apiBaseUrl + requestRoute, options);
 
     if (!response.ok) {
       throw new Error('Erro ao fazer logout: ' + response.statusText);
