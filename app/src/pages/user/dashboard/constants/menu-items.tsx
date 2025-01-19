@@ -1,6 +1,5 @@
 import { House } from '@phosphor-icons/react';
 import { User } from '@phosphor-icons/react';
-import { SignOut } from '@phosphor-icons/react';
 import { Money } from '@phosphor-icons/react';
 import { Clock } from '@phosphor-icons/react';
 import { Calculator } from '@phosphor-icons/react';
@@ -34,13 +33,5 @@ export const menuItems = [
         icon: <Clock />,
         href: '/user/dashboard/history',
     },
-
-    {
-        label: 'Sair',
-        icon: <SignOut />,
-        href: '/logout',
-        
-    }
-
 ];
 
